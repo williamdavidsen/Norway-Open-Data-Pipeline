@@ -1,8 +1,10 @@
-.PHONY: format lint typecheck test
+.PHONY: install format lint typecheck test coverage
+
+install:
+	pip install -e ".[dev]"
 
 format:
 	ruff format .
-	ruff check . --fix
 
 lint:
 	ruff check .
@@ -11,4 +13,7 @@ typecheck:
 	mypy src
 
 test:
-	pytest
+	pytest -q
+
+coverage:
+	pytest --cov=src --cov-report=term-missing
